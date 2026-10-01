@@ -1,403 +1,69 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#08745f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mi Compra">
 <title>Mi Compra</title>
- 
 <style>
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-font-family:Arial,Helvetica,sans-serif;
-}
- 
-body{
-background:#f3f6f5;
-padding-bottom:100px;
-}
- 
-header{
-background:#0f766e;
-color:white;
-padding:20px;
-position:sticky;
-top:0;
-z-index:100;
-}
- 
-header h1{
-font-size:28px;
-}
- 
-.container{
-max-width:900px;
-margin:auto;
-padding:15px;
-}
- 
-.card{
-background:white;
-border-radius:15px;
-padding:15px;
-margin-bottom:15px;
-box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
- 
-.section-title{
-font-size:22px;
-margin-bottom:10px;
-}
- 
-.list-item{
-display:flex;
-align-items:center;
-gap:10px;
-padding:10px;
-border-bottom:1px solid #eee;
-}
- 
-.list-item:last-child{
-border-bottom:none;
-}
- 
-.product-name{
-flex:1;
-}
- 
-.done{
-text-decoration:line-through;
-opacity:.5;
-}
- 
-.qty{
-width:70px;
-padding:5px;
-}
- 
-.unit{
-padding:5px;
-}
- 
-.category{
-background:white;
-margin-bottom:10px;
-border-radius:15px;
-overflow:hidden;
-box-shadow:0 2px 8px rgba(0,0,0,.06);
-}
- 
-.category-header{
-background:#fff;
-padding:15px;
-font-weight:bold;
-cursor:pointer;
-font-size:18px;
-}
- 
-.category-content{
-display:none;
-padding:10px;
-}
- 
-.category.open .category-content{
-display:block;
-}
- 
-button{
-cursor:pointer;
-}
- 
-.check{
-width:22px;
-height:22px;
-}
- 
-.badge{
-background:#e8faf7;
-color:#0f766e;
-padding:5px 10px;
-border-radius:20px;
-font-weight:bold;
-display:inline-block;
-margin-top:10px;
-}
- 
-.footer{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-background:white;
-padding:15px;
-box-shadow:0 -3px 10px rgba(0,0,0,.1);
-font-weight:bold;
-}
+:root{--green:#08745f;--green2:#0b8a70;--mint:#eaf8f3;--bg:#f3f6f5;--card:#fff;--text:#17211e;--muted:#72807b;--line:#e4e9e7;--danger:#d54848;--shadow:0 6px 22px rgba(18,55,45,.09)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.35 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;padding-bottom:98px}.app{max-width:780px;margin:auto}.top{position:sticky;top:0;z-index:20;background:linear-gradient(135deg,var(--green),#075e50);color:#fff;padding:calc(14px + env(safe-area-inset-top)) 16px 14px;box-shadow:0 5px 18px rgba(0,70,55,.2)}.topline{display:flex;align-items:center;justify-content:space-between;gap:12px}.eyebrow{font-size:11px;letter-spacing:.08em;opacity:.8;font-weight:800}.title{font-size:25px;font-weight:900;display:flex;gap:9px;align-items:center}.counter{text-align:right}.counter b{font-size:25px}.counter span{display:block;font-size:11px;opacity:.82}.sync{margin-top:10px;display:flex;justify-content:space-between;font-size:12px;opacity:.9}.main{padding:13px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:13px}.cardhead{padding:15px 16px;background:var(--mint);display:flex;align-items:center;justify-content:space-between}.cardhead h2{font-size:18px;margin:0}.sub{font-size:12px;color:var(--muted);margin-top:2px}.iconbtn{border:0;background:rgba(255,255,255,.8);border-radius:12px;width:38px;height:38px;font-size:18px;cursor:pointer}.empty{padding:25px;text-align:center;color:var(--muted)}.selected-row{padding:12px 13px;display:flex;align-items:center;gap:10px;border-top:1px solid var(--line)}.selected-row.done{opacity:.55;background:#f8faf9}.check{width:30px;height:30px;border-radius:50%;border:2px solid #bcc8c4;background:#fff;display:grid;place-items:center;flex:0 0 auto;font-weight:900;color:#fff;cursor:pointer}.check.on{background:var(--green2);border-color:var(--green2)}.prodname{flex:1;text-align:left;border:0;background:transparent;font:inherit;font-weight:750;cursor:pointer}.prodname small{display:block;color:var(--muted);font-weight:500;font-size:11px}.done .prodname>span{text-decoration:line-through}.qtypill{white-space:nowrap;background:#edf1ef;padding:6px 8px;border-radius:10px;font-weight:750}.trash{border:0;background:none;color:#97a39f;font-size:18px;cursor:pointer}.search{position:relative;margin-bottom:13px}.search input{width:100%;border:1px solid var(--line);border-radius:17px;padding:14px 14px 14px 43px;background:#fff;font-size:16px;outline:none;box-shadow:0 3px 12px rgba(0,0,0,.04)}.search input:focus{border-color:var(--green2);box-shadow:0 0 0 3px rgba(11,138,112,.12)}.search span{position:absolute;left:15px;top:13px;font-size:19px}.addbox{padding:14px}.addbox h3{margin:0 0 10px}.addgrid{display:grid;grid-template-columns:1fr 160px auto;gap:8px}.field{width:100%;border:1px solid #dce3e0;border-radius:12px;background:#fff;padding:11px;font:inherit;outline:none}.primary{border:0;border-radius:12px;background:var(--green2);color:#fff;font-weight:800;padding:10px 15px;cursor:pointer}.category{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-bottom:9px;box-shadow:0 3px 12px rgba(0,0,0,.035)}.catbtn{width:100%;padding:15px;border:0;background:#fff;display:flex;align-items:center;gap:11px;text-align:left;cursor:pointer;color:var(--text)}.catemoji{font-size:24px}.catname{font-weight:850;flex:1}.count{font-size:11px;color:var(--muted)}.chev{font-size:14px;transition:.2s}.category.open .chev{transform:rotate(180deg)}.products{display:none;border-top:1px solid var(--line)}.category.open .products{display:block}.product{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid #edf0ef;min-height:55px}.product:last-child{border-bottom:0}.product.active{background:#f0fbf7}.square{width:27px;height:27px;border-radius:8px;border:2px solid #bdc8c5;background:#fff;display:grid;place-items:center;color:#fff;font-weight:900;cursor:pointer;flex:0 0 auto}.square.on{background:var(--green2);border-color:var(--green2)}.ptext{flex:1;font-weight:720;cursor:pointer}.controls{display:flex;gap:6px}.num{width:70px}.unit{width:91px}.bottom{position:fixed;bottom:0;left:0;right:0;z-index:18;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:10px 13px calc(10px + env(safe-area-inset-bottom))}.bottomin{max-width:754px;margin:auto;display:flex;align-items:center;justify-content:space-between}.bottom small{display:block;color:var(--muted)}.toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%) translateY(20px);background:#17211e;color:#fff;padding:10px 14px;border-radius:12px;opacity:0;pointer-events:none;transition:.25s;z-index:40}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:560px){.addgrid{grid-template-columns:1fr 135px}.addgrid button{grid-column:1/-1}.controls{width:150px}.num{width:60px}.unit{width:84px}.main{padding:10px}.product{gap:7px}}
 </style>
 </head>
- 
 <body>
- 
-<header>
-<h1>🛒 Mi Compra</h1>
-<div class="badge" id="count">0 productos seleccionados</div>
-</header>
- 
-<div class="container">
- 
-<div class="card">
-<h2 class="section-title">Compra actual</h2>
-<div id="shoppingList"></div>
-</div>
- 
-<div id="categories"></div>
- 
-</div>
- 
-<div class="footer">
-Lista guardada automáticamente ✅
-</div>
- 
+<header class="top"><div class="app"><div class="topline"><div><div class="eyebrow">LISTA PERSONAL</div><div class="title">🛒 Mi compra</div></div><div class="counter"><b id="pendingTop">0</b><span>por comprar</span></div></div><div class="sync"><span>● Guardado automáticamente</span><span id="completedTop">0 comprados</span></div></div></header>
+<main class="app main">
+<section class="card" id="currentCard"><div class="cardhead"><div><h2>🛒 Compra actual</h2><div class="sub">Toca un producto cuando lo metas en el carro</div></div><button class="iconbtn" id="resetBtn" title="Vaciar lista">↻</button></div><div id="selectedList"></div></section>
+<div class="search"><span>⌕</span><input id="search" placeholder="Buscar un producto..." autocomplete="off"></div>
+<section class="card addbox"><h3>Añadir mi producto</h3><div class="addgrid"><input class="field" id="newName" placeholder="Ej. Tortitas de arroz"><select class="field" id="newCat"></select><button class="primary" id="addBtn">＋ Añadir</button></div></section>
+<section id="categories"></section>
+</main>
+<nav class="bottom"><div class="bottomin"><div><b id="totalBottom">0 productos</b><small id="doneBottom">0 comprados</small></div><button class="primary" onclick="window.scrollTo({top:0,behavior:'smooth'})">Ver mi lista</button></div></nav>
+<div class="toast" id="toast">Guardado</div>
 <script>
- 
-const catalog = {
-"🥛 Lácteos":[
-"Leche",
-"Yogur",
-"Queso",
-"Mantequilla",
-"Huevos"
-],
- 
-"🍗 Aves y Carnes":[
-"Pechuga de pollo",
-"Pavo",
-"Hamburguesas",
-"Ternera",
-"Cerdo"
-],
- 
-"🥬 Frutas y Verduras":[
-"Plátanos",
-"Manzanas",
-"Tomates",
-"Patatas",
-"Lechuga",
-"Cebolla",
-"Zanahoria"
-],
- 
-"🍝 Pasta y Arroz":[
-"Pasta",
-"Espaguetis",
-"Arroz",
-"Lentejas",
-"Garbanzos"
-],
- 
-"🧽 Limpieza":[
-"Detergente",
-"Suavizante",
-"Papel de cocina",
-"Bolsas basura",
-"Lavavajillas"
-],
- 
-"🧴 Higiene":[
-"Papel higiénico",
-"Gel",
-"Champú",
-"Desodorante",
-"Pasta dientes"
-],
- 
-"🥤 Bebidas":[
-"Agua",
-"Refrescos",
-"Cerveza",
-"Zumo"
-]
-};
- 
-let store =
-JSON.parse(localStorage.getItem("mi-compra")) || {};
- 
-function save(){
-localStorage.setItem(
-"mi-compra",
-JSON.stringify(store)
-);
- 
-renderList();
-}
- 
-function toggle(category,product){
- 
-if(!store[product]){
- 
-store[product]={
-category,
-quantity:1,
-unit:"ud",
-done:false
-};
- 
-}else{
- 
-delete store[product];
- 
-}
- 
-save();
-}
- 
-function renderCategories(){
- 
-const root =
-document.getElementById("categories");
- 
-root.innerHTML="";
- 
-Object.entries(catalog).forEach(([cat,products])=>{
- 
-const div=document.createElement("div");
-div.className="category";
- 
-div.innerHTML=`
-<div class="category-header">${cat}</div>
-<div class="category-content">
-${products.map(p=>`
-<div class="list-item">
-<input
-type="checkbox"
-${store[p]?"checked":""}
-onchange="toggle('${cat}','${p}')">
-<div class="product-name">${p}</div>
-</div>
-`).join("")}
-</div>
-`;
- 
-div.querySelector(".category-header")
-.addEventListener("click",()=>{
-div.classList.toggle("open");
-});
- 
-root.appendChild(div);
- 
-});
- 
-}
- 
-function renderList(){
- 
-const root =
-document.getElementById("shoppingList");
- 
-const items =
-Object.entries(store);
- 
-document.getElementById("count")
-.innerText=
-items.length+" productos seleccionados";
- 
-if(items.length===0){
- 
-root.innerHTML=
-"<p>No hay productos seleccionados.</p>";
- 
-renderCategories();
-return;
-}
- 
-root.innerHTML=
-items.map(([name,data])=>`
-<div class="list-item">
- 
-<input
-class="check"
-type="checkbox"
-${data.done?"checked":""}
-onchange="markDone('${name}')">
- 
-<div class="product-name ${data.done?'done':''}">
-${name}
-<br>
-<small>${data.category}</small>
-</div>
- 
-<input
-class="qty"
-type="number"
-min="1"
-value="${data.quantity}"
-onchange="changeQty('${name}',this.value)">
- 
-<select
-class="unit"
-onchange="changeUnit('${name}',this.value)">
- 
-<option ${data.unit==="ud"?"selected":""}>
-ud
-</option>
- 
-<option ${data.unit==="g"?"selected":""}>
-g
-</option>
- 
-<option ${data.unit==="kg"?"selected":""}>
-kg
-</option>
- 
-<option ${data.unit==="l"?"selected":""}>
-l
-</option>
- 
-</select>
- 
-<button onclick="removeItem('${name}')">
-❌
-</button>
- 
-</div>
-`).join("");
- 
-renderCategories();
-}
- 
-function markDone(product){
- 
-store[product].done=
-!store[product].done;
- 
-save();
-}
- 
-function removeItem(product){
- 
-delete store[product];
- 
-save();
-}
- 
-function changeQty(product,val){
- 
-store[product].quantity=val;
- 
-save();
-}
- 
-function changeUnit(product,val){
- 
-store[product].unit=val;
- 
-save();
-}
- 
-renderList();
- 
+const CATALOG={
+"Frutas y verduras":["Plátanos","Manzanas","Peras","Naranjas","Limones","Aguacates","Tomates","Lechuga","Espinacas","Cebollas","Ajos","Patatas","Zanahorias","Pimientos","Calabacín","Berenjena","Brócoli","Champiñones"],
+"Aves y carnes":["Pechuga de pollo","Muslos de pollo","Pavo","Carne picada","Filetes de ternera","Lomo de cerdo","Costillas","Hamburguesas","Salchichas"],
+"Pescado y marisco":["Salmón","Merluza","Atún","Bacalao","Dorada","Gambas","Mejillones","Calamares"],
+"Lácteos y huevos":["Leche","Huevos","Yogur natural","Yogur griego","Queso fresco","Queso rallado","Queso en lonchas","Mantequilla","Nata"],
+"Panadería":["Pan de molde","Pan integral","Barra de pan","Tortillas de trigo","Picos","Croissants","Galletas"],
+"Arroz, pasta y legumbres":["Arroz","Pasta","Espaguetis","Cuscús","Quinoa","Lentejas","Garbanzos","Alubias"],
+"Despensa":["Aceite de oliva","Vinagre","Sal","Azúcar","Harina","Tomate triturado","Caldo","Atún en lata","Maíz","Aceitunas","Salsas","Especias","Café","Té","Cacao"],
+"Congelados":["Verduras congeladas","Guisantes","Patatas fritas","Pizza","Pescado congelado","Helado","Hielo"],
+"Bebidas":["Agua","Agua con gas","Refrescos","Zumos","Cerveza","Vino","Bebida vegetal"],
+"Desayuno y snacks":["Cereales","Avena","Mermelada","Miel","Frutos secos","Barritas","Chocolate","Patatas fritas"],
+"Limpieza":["Detergente ropa","Suavizante","Lavavajillas","Pastillas lavavajillas","Limpiador multiusos","Lejía","Limpiacristales","Bolsas de basura","Estropajos","Bayetas","Papel de cocina"],
+"Higiene y cuidado":["Papel higiénico","Gel de ducha","Champú","Acondicionador","Desodorante","Pasta de dientes","Cepillos de dientes","Jabón de manos","Crema hidratante","Cuchillas","Algodón"],
+"Hogar y mascotas":["Papel de aluminio","Film transparente","Servilletas","Pilas","Bombillas","Comida para perro","Comida para gato","Arena para gato"]};
+const EMOJI={"Frutas y verduras":"🥬","Aves y carnes":"🍗","Pescado y marisco":"🐟","Lácteos y huevos":"🥛","Panadería":"🥖","Arroz, pasta y legumbres":"🍝","Despensa":"🫙","Congelados":"❄️","Bebidas":"🥤","Desayuno y snacks":"🥣","Limpieza":"🧽","Higiene y cuidado":"🧴","Hogar y mascotas":"🏠"};
+const UNITS=["ud","g","kg","ml","l","paquetes","cajas","botellas","botes"];
+const KEY="miCompraStandaloneV2", CATKEY="miCompraCatalogV2";
+let catalog=JSON.parse(localStorage.getItem(CATKEY)||"null")||CATALOG;
+let items=JSON.parse(localStorage.getItem(KEY)||"{}");
+let openCats={"Frutas y verduras":true};
+const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+const key=(c,n)=>c+"::"+n;
+function save(){localStorage.setItem(KEY,JSON.stringify(items));localStorage.setItem(CATKEY,JSON.stringify(catalog));showToast()}
+function showToast(){const t=document.getElementById("toast");t.classList.add("show");clearTimeout(showToast.x);showToast.x=setTimeout(()=>t.classList.remove("show"),700)}
+function toggle(c,n){const k=key(c,n),x=items[k];items[k]={cat:c,name:n,qty:x?.qty||1,unit:x?.unit||"ud",selected:!x?.selected,done:false};save();render()}
+function patch(k,p){items[k]={...items[k],...p};save();render()}
+function renderSelected(){const list=document.getElementById("selectedList");const arr=Object.values(items).filter(x=>x.selected).sort((a,b)=>Number(a.done)-Number(b.done));const pending=arr.filter(x=>!x.done).length,done=arr.length-pending;document.getElementById("pendingTop").textContent=pending;document.getElementById("completedTop").textContent=done+" comprados";document.getElementById("totalBottom").textContent=arr.length+" productos";document.getElementById("doneBottom").textContent=done+" comprados";
+if(!arr.length){list.innerHTML='<div class="empty">Selecciona productos del catálogo para crear tu compra.</div>';return}
+list.innerHTML=arr.map(x=>{const k=key(x.cat,x.name);return `<div class="selected-row ${x.done?'done':''}"><button class="check ${x.done?'on':''}" data-action="done" data-key="${esc(k)}">${x.done?'✓':''}</button><button class="prodname" data-action="done" data-key="${esc(k)}"><span>${esc(x.name)}</span><small>${esc(x.cat)}</small></button><span class="qtypill">${esc(x.qty)} ${esc(x.unit)}</span><button class="trash" data-action="remove" data-key="${esc(k)}">✕</button></div>`}).join("");}
+function renderCategories(){const q=document.getElementById("search").value.trim().toLowerCase();const root=document.getElementById("categories");root.innerHTML=Object.entries(catalog).map(([c,ps])=>{const filtered=ps.filter(n=>(c+" "+n).toLowerCase().includes(q));if(!filtered.length)return"";const isOpen=q||openCats[c];return `<article class="category ${isOpen?'open':''}"><button class="catbtn" data-cat="${esc(c)}"><span class="catemoji">${EMOJI[c]||'🛍️'}</span><span class="catname">${esc(c)}</span><span class="count">${filtered.length}</span><span class="chev">⌄</span></button><div class="products">${filtered.map(n=>{const k=key(c,n),x=items[k],on=x?.selected;return `<div class="product ${on?'active':''}"><button class="square ${on?'on':''}" data-action="toggle" data-cat="${esc(c)}" data-name="${esc(n)}">${on?'✓':''}</button><div class="ptext" data-action="toggle" data-cat="${esc(c)}" data-name="${esc(n)}">${esc(n)}</div>${on?`<div class="controls"><input class="field num" type="number" min="0.1" step="0.1" value="${esc(x.qty)}" data-action="qty" data-key="${esc(k)}"><select class="field unit" data-action="unit" data-key="${esc(k)}">${UNITS.map(u=>`<option ${x.unit===u?'selected':''}>${u}</option>`).join('')}</select></div>`:''}</div>`}).join('')}</div></article>`}).join('')}
+function render(){renderSelected();renderCategories()}
+document.getElementById("categories").addEventListener("click",e=>{const catButton=e.target.closest("[data-cat]:not([data-action])");if(catButton){const c=catButton.dataset.cat;openCats[c]=!openCats[c];renderCategories();return}const a=e.target.closest("[data-action]");if(a?.dataset.action==="toggle")toggle(a.dataset.cat,a.dataset.name)});
+document.getElementById("categories").addEventListener("change",e=>{if(e.target.dataset.action==="qty")patch(e.target.dataset.key,{qty:e.target.value||1});if(e.target.dataset.action==="unit")patch(e.target.dataset.key,{unit:e.target.value})});
+document.getElementById("selectedList").addEventListener("click",e=>{const a=e.target.closest("[data-action]");if(!a)return;const k=a.dataset.key;if(a.dataset.action==="done")patch(k,{done:!items[k].done});if(a.dataset.action==="remove")patch(k,{selected:false,done:false})});
+document.getElementById("search").addEventListener("input",renderCategories);
+document.getElementById("resetBtn").onclick=()=>{if(confirm("¿Vaciar la compra actual?")){items={};save();render()}};
+document.getElementById("addBtn").onclick=addCustom;document.getElementById("newName").addEventListener("keydown",e=>{if(e.key==="Enter")addCustom()});
+function addCustom(){const input=document.getElementById("newName"),c=document.getElementById("newCat").value,n=input.value.trim();if(!n)return;catalog[c]=Array.from(new Set([...(catalog[c]||[]),n]));input.value="";const k=key(c,n);items[k]={cat:c,name:n,qty:1,unit:"ud",selected:true,done:false};openCats[c]=true;save();render()}
+const catSelect=document.getElementById("newCat");catSelect.innerHTML=Object.keys(catalog).map(c=>`<option>${esc(c)}</option>`).join("");render();
 </script>
- 
 </body>
 </html>
