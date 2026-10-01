@@ -44,7 +44,7 @@ const UNITS=["ud","g","kg","ml","l","paquetes","cajas","botellas","botes"];
 const KEY="miCompraStandaloneV2", CATKEY="miCompraCatalogV2";
 let catalog=JSON.parse(localStorage.getItem(CATKEY)||"null")||CATALOG;
 let items=JSON.parse(localStorage.getItem(KEY)||"{}");
-let openCats={"Frutas y verduras":true};
+let openCats={};
 const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 const key=(c,n)=>c+"::"+n;
 function save(){localStorage.setItem(KEY,JSON.stringify(items));localStorage.setItem(CATKEY,JSON.stringify(catalog));showToast()}
