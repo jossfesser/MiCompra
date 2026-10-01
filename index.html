@@ -1,69 +1,123 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#08745f">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Mi Compra">
-<title>Mi Compra</title>
-<style>
-:root{--green:#08745f;--green2:#0b8a70;--mint:#eaf8f3;--bg:#f3f6f5;--card:#fff;--text:#17211e;--muted:#72807b;--line:#e4e9e7;--danger:#d54848;--shadow:0 6px 22px rgba(18,55,45,.09)}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.35 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;padding-bottom:98px}.app{max-width:780px;margin:auto}.top{position:sticky;top:0;z-index:20;background:linear-gradient(135deg,var(--green),#075e50);color:#fff;padding:calc(14px + env(safe-area-inset-top)) 16px 14px;box-shadow:0 5px 18px rgba(0,70,55,.2)}.topline{display:flex;align-items:center;justify-content:space-between;gap:12px}.eyebrow{font-size:11px;letter-spacing:.08em;opacity:.8;font-weight:800}.title{font-size:25px;font-weight:900;display:flex;gap:9px;align-items:center}.counter{text-align:right}.counter b{font-size:25px}.counter span{display:block;font-size:11px;opacity:.82}.sync{margin-top:10px;display:flex;justify-content:space-between;font-size:12px;opacity:.9}.main{padding:13px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:13px}.cardhead{padding:15px 16px;background:var(--mint);display:flex;align-items:center;justify-content:space-between}.cardhead h2{font-size:18px;margin:0}.sub{font-size:12px;color:var(--muted);margin-top:2px}.iconbtn{border:0;background:rgba(255,255,255,.8);border-radius:12px;width:38px;height:38px;font-size:18px;cursor:pointer}.empty{padding:25px;text-align:center;color:var(--muted)}.selected-row{padding:12px 13px;display:flex;align-items:center;gap:10px;border-top:1px solid var(--line)}.selected-row.done{opacity:.55;background:#f8faf9}.check{width:30px;height:30px;border-radius:50%;border:2px solid #bcc8c4;background:#fff;display:grid;place-items:center;flex:0 0 auto;font-weight:900;color:#fff;cursor:pointer}.check.on{background:var(--green2);border-color:var(--green2)}.prodname{flex:1;text-align:left;border:0;background:transparent;font:inherit;font-weight:750;cursor:pointer}.prodname small{display:block;color:var(--muted);font-weight:500;font-size:11px}.done .prodname>span{text-decoration:line-through}.qtypill{white-space:nowrap;background:#edf1ef;padding:6px 8px;border-radius:10px;font-weight:750}.trash{border:0;background:none;color:#97a39f;font-size:18px;cursor:pointer}.search{position:relative;margin-bottom:13px}.search input{width:100%;border:1px solid var(--line);border-radius:17px;padding:14px 14px 14px 43px;background:#fff;font-size:16px;outline:none;box-shadow:0 3px 12px rgba(0,0,0,.04)}.search input:focus{border-color:var(--green2);box-shadow:0 0 0 3px rgba(11,138,112,.12)}.search span{position:absolute;left:15px;top:13px;font-size:19px}.addbox{padding:14px}.addbox h3{margin:0 0 10px}.addgrid{display:grid;grid-template-columns:1fr 160px auto;gap:8px}.field{width:100%;border:1px solid #dce3e0;border-radius:12px;background:#fff;padding:11px;font:inherit;outline:none}.primary{border:0;border-radius:12px;background:var(--green2);color:#fff;font-weight:800;padding:10px 15px;cursor:pointer}.category{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-bottom:9px;box-shadow:0 3px 12px rgba(0,0,0,.035)}.catbtn{width:100%;padding:15px;border:0;background:#fff;display:flex;align-items:center;gap:11px;text-align:left;cursor:pointer;color:var(--text)}.catemoji{font-size:24px}.catname{font-weight:850;flex:1}.count{font-size:11px;color:var(--muted)}.chev{font-size:14px;transition:.2s}.category.open .chev{transform:rotate(180deg)}.products{display:none;border-top:1px solid var(--line)}.category.open .products{display:block}.product{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid #edf0ef;min-height:55px}.product:last-child{border-bottom:0}.product.active{background:#f0fbf7}.square{width:27px;height:27px;border-radius:8px;border:2px solid #bdc8c5;background:#fff;display:grid;place-items:center;color:#fff;font-weight:900;cursor:pointer;flex:0 0 auto}.square.on{background:var(--green2);border-color:var(--green2)}.ptext{flex:1;font-weight:720;cursor:pointer}.controls{display:flex;gap:6px}.num{width:70px}.unit{width:91px}.bottom{position:fixed;bottom:0;left:0;right:0;z-index:18;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:10px 13px calc(10px + env(safe-area-inset-bottom))}.bottomin{max-width:754px;margin:auto;display:flex;align-items:center;justify-content:space-between}.bottom small{display:block;color:var(--muted)}.toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%) translateY(20px);background:#17211e;color:#fff;padding:10px 14px;border-radius:12px;opacity:0;pointer-events:none;transition:.25s;z-index:40}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@media(max-width:560px){.addgrid{grid-template-columns:1fr 135px}.addgrid button{grid-column:1/-1}.controls{width:150px}.num{width:60px}.unit{width:84px}.main{padding:10px}.product{gap:7px}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#047857">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Mi Compra">
+  <title>Mi Compra</title>
+  <style>
+    :root{--green:#047857;--green2:#059669;--soft:#ecfdf5;--bg:#f8fafc;--card:#fff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--danger:#dc2626;--shadow:0 8px 25px rgba(15,23,42,.08)}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:92px}
+    button,input,select{font:inherit} button{cursor:pointer} .wrap{max-width:780px;margin:auto;padding:14px}
+    header{position:sticky;top:0;z-index:50;background:linear-gradient(135deg,#047857,#065f46);color:white;box-shadow:0 5px 20px rgba(6,95,70,.25)}
+    .head{max-width:780px;margin:auto;padding:18px 16px 14px}.eyebrow{font-size:11px;letter-spacing:.11em;opacity:.78;font-weight:800}.headrow{display:flex;justify-content:space-between;align-items:center;gap:12px}.title{margin:3px 0 0;font-size:27px}.counter{text-align:right}.counter strong{font-size:24px;display:block}.counter span{font-size:11px;opacity:.8}.status{display:flex;justify-content:space-between;gap:10px;margin-top:12px;font-size:12px;color:#d1fae5}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:19px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}.cardpad{padding:15px}.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--soft);padding:15px}.sectionhead h2{font-size:18px;margin:0}.sectionhead p{margin:3px 0 0;color:var(--muted);font-size:12px}
+    .iconbtn{border:0;background:rgba(255,255,255,.18);color:inherit;border-radius:12px;padding:9px 11px}.ghost{border:1px solid var(--border);background:white;color:var(--text)}.danger{color:var(--danger)}
+    .search{position:relative;margin-bottom:14px}.search span{position:absolute;left:14px;top:12px}.search input{width:100%;padding:12px 14px 12px 42px;border:1px solid var(--border);border-radius:16px;background:white;box-shadow:0 3px 12px rgba(15,23,42,.04);outline:none}.search input:focus{border-color:var(--green2);box-shadow:0 0 0 3px rgba(5,150,105,.15)}
+    .addgrid{display:grid;grid-template-columns:1fr 190px auto;gap:8px}.field{width:100%;border:1px solid var(--border);border-radius:12px;padding:11px;background:white;outline:none}.primary{border:0;background:var(--green);color:white;border-radius:12px;padding:11px 16px;font-weight:800}.primary:hover{background:#065f46}
+    .buyrow,.productrow{display:flex;align-items:center;gap:10px;padding:12px 14px;border-top:1px solid #edf2f7}.buyrow:first-child,.productrow:first-child{border-top:0}.buyrow.done{background:#f8fafc;opacity:.62}.check{width:29px;height:29px;border-radius:50%;border:2px solid #cbd5e1;background:white;display:grid;place-items:center;flex:none;font-weight:900}.check.on{background:var(--green2);border-color:var(--green2);color:white}.name{flex:1;min-width:0;font-weight:700}.name.done{text-decoration:line-through}.sub{display:block;color:var(--muted);font-size:11px;font-weight:500;margin-top:2px}.amount{background:#f1f5f9;border-radius:9px;padding:6px 9px;font-size:13px;font-weight:800;white-space:nowrap}.remove{border:0;background:transparent;color:#94a3b8;font-size:17px;padding:6px}.remove:hover{color:var(--danger)}
+    .empty{padding:24px;text-align:center;color:var(--muted)}.complete{padding:22px;text-align:center;color:var(--green);font-weight:800}
+    .category{background:white;border:1px solid var(--border);border-radius:17px;margin-bottom:9px;overflow:hidden;box-shadow:0 3px 12px rgba(15,23,42,.04)}.cathead{width:100%;border:0;background:white;padding:15px;display:flex;align-items:center;gap:11px;text-align:left}.cathead .emoji{font-size:23px}.cathead strong{flex:1}.pill{font-size:11px;color:var(--muted);background:#f1f5f9;padding:4px 7px;border-radius:999px}.arrow{color:#64748b}.catbody{display:none;border-top:1px solid var(--border)}.category.open .catbody{display:block}.category.open .arrow{transform:rotate(180deg)}
+    .productrow.selected{background:var(--soft)}.square{width:27px;height:27px;border-radius:8px;border:2px solid #cbd5e1;background:white;display:grid;place-items:center;flex:none;font-weight:900}.square.on{background:var(--green2);border-color:var(--green2);color:#fff}.qty{width:68px}.unit{width:100px}
+    .footer{position:fixed;z-index:40;left:0;right:0;bottom:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:11px max(12px,env(safe-area-inset-right)) calc(11px + env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left))}.footerin{max-width:752px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}.footer small{display:block;color:var(--muted);margin-top:2px}
+    .toast{position:fixed;z-index:80;left:50%;bottom:95px;transform:translateX(-50%) translateY(20px);background:#0f172a;color:white;padding:10px 15px;border-radius:999px;font-size:13px;opacity:0;pointer-events:none;transition:.2s}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    @media(max-width:620px){.addgrid{grid-template-columns:1fr}.qty{width:62px}.unit{width:82px}.wrap{padding:10px}.buyrow,.productrow{padding:11px 10px}.title{font-size:24px}.sectionhead{padding:13px}.amount{font-size:12px}}
+    @media(prefers-color-scheme:dark){body.auto-dark{--bg:#07120f;--card:#101c18;--text:#e8fff7;--muted:#9fb9b0;--border:#243b33;--soft:#12382c}.auto-dark .field,.auto-dark .search input,.auto-dark .category,.auto-dark .cathead,.auto-dark .ghost,.auto-dark .check,.auto-dark .square{background:#101c18;color:var(--text)}.auto-dark .amount,.auto-dark .pill{background:#1f332c}.auto-dark .footer{background:rgba(16,28,24,.95)}}
+  </style>
 </head>
-<body>
-<header class="top"><div class="app"><div class="topline"><div><div class="eyebrow">LISTA PERSONAL</div><div class="title">🛒 Mi compra</div></div><div class="counter"><b id="pendingTop">0</b><span>por comprar</span></div></div><div class="sync"><span>● Guardado automáticamente</span><span id="completedTop">0 comprados</span></div></div></header>
-<main class="app main">
-<section class="card" id="currentCard"><div class="cardhead"><div><h2>🛒 Compra actual</h2><div class="sub">Toca un producto cuando lo metas en el carro</div></div><button class="iconbtn" id="resetBtn" title="Vaciar lista">↻</button></div><div id="selectedList"></div></section>
-<div class="search"><span>⌕</span><input id="search" placeholder="Buscar un producto..." autocomplete="off"></div>
-<section class="card addbox"><h3>Añadir mi producto</h3><div class="addgrid"><input class="field" id="newName" placeholder="Ej. Tortitas de arroz"><select class="field" id="newCat"></select><button class="primary" id="addBtn">＋ Añadir</button></div></section>
-<section id="categories"></section>
+<body class="auto-dark">
+<header>
+  <div class="head">
+    <div class="headrow">
+      <div><div class="eyebrow">LISTA PERSONAL · GUARDADO LOCAL</div><h1 class="title">🛒 Mi compra</h1></div>
+      <div class="counter"><strong id="pendingTop">0</strong><span>por comprar</span></div>
+    </div>
+    <div class="status"><span id="saveStatus">● Lista guardada en este dispositivo</span><span id="summaryTop">0 productos</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="card" id="currentCard">
+    <div class="sectionhead">
+      <div><h2>🛒 Compra actual</h2><p>Marca los productos según los vayas comprando</p></div>
+      <button class="iconbtn ghost danger" id="resetBtn" title="Vaciar compra">↻ Vaciar</button>
+    </div>
+    <div id="shoppingList"></div>
+    <div id="completedMessage" class="complete" hidden>✅ ¡Compra completada!</div>
+  </section>
+
+  <div class="search"><span>🔎</span><input id="searchInput" type="search" placeholder="Buscar un producto o categoría..." autocomplete="off"></div>
+
+  <section class="card cardpad">
+    <h2 style="font-size:17px;margin:0 0 11px">Añadir producto personalizado</h2>
+    <div class="addgrid">
+      <input class="field" id="newProduct" placeholder="Ej. Tortitas de arroz" maxlength="60">
+      <select class="field" id="newCategory"></select>
+      <button class="primary" id="addBtn">＋ Añadir</button>
+    </div>
+  </section>
+
+  <section id="categories"></section>
 </main>
-<nav class="bottom"><div class="bottomin"><div><b id="totalBottom">0 productos</b><small id="doneBottom">0 comprados</small></div><button class="primary" onclick="window.scrollTo({top:0,behavior:'smooth'})">Ver mi lista</button></div></nav>
+
+<div class="footer"><div class="footerin"><div><strong id="footerTotal">0 productos</strong><small id="footerDone">0 comprados</small></div><button class="primary" id="topBtn">Ver mi lista</button></div></div>
 <div class="toast" id="toast">Guardado</div>
+
 <script>
-const CATALOG={
-"Frutas y verduras":["Plátanos","Manzanas","Peras","Naranjas","Limones","Aguacates","Tomates","Lechuga","Espinacas","Cebollas","Ajos","Patatas","Zanahorias","Pimientos","Calabacín","Berenjena","Brócoli","Champiñones"],
-"Aves y carnes":["Pechuga de pollo","Muslos de pollo","Pavo","Carne picada","Filetes de ternera","Lomo de cerdo","Costillas","Hamburguesas","Salchichas"],
-"Pescado y marisco":["Salmón","Merluza","Atún","Bacalao","Dorada","Gambas","Mejillones","Calamares"],
-"Lácteos y huevos":["Leche","Huevos","Yogur natural","Yogur griego","Queso fresco","Queso rallado","Queso en lonchas","Mantequilla","Nata"],
-"Panadería":["Pan de molde","Pan integral","Barra de pan","Tortillas de trigo","Picos","Croissants","Galletas"],
-"Arroz, pasta y legumbres":["Arroz","Pasta","Espaguetis","Cuscús","Quinoa","Lentejas","Garbanzos","Alubias"],
-"Despensa":["Aceite de oliva","Vinagre","Sal","Azúcar","Harina","Tomate triturado","Caldo","Atún en lata","Maíz","Aceitunas","Salsas","Especias","Café","Té","Cacao"],
-"Congelados":["Verduras congeladas","Guisantes","Patatas fritas","Pizza","Pescado congelado","Helado","Hielo"],
-"Bebidas":["Agua","Agua con gas","Refrescos","Zumos","Cerveza","Vino","Bebida vegetal"],
-"Desayuno y snacks":["Cereales","Avena","Mermelada","Miel","Frutos secos","Barritas","Chocolate","Patatas fritas"],
-"Limpieza":["Detergente ropa","Suavizante","Lavavajillas","Pastillas lavavajillas","Limpiador multiusos","Lejía","Limpiacristales","Bolsas de basura","Estropajos","Bayetas","Papel de cocina"],
-"Higiene y cuidado":["Papel higiénico","Gel de ducha","Champú","Acondicionador","Desodorante","Pasta de dientes","Cepillos de dientes","Jabón de manos","Crema hidratante","Cuchillas","Algodón"],
-"Hogar y mascotas":["Papel de aluminio","Film transparente","Servilletas","Pilas","Bombillas","Comida para perro","Comida para gato","Arena para gato"]};
-const EMOJI={"Frutas y verduras":"🥬","Aves y carnes":"🍗","Pescado y marisco":"🐟","Lácteos y huevos":"🥛","Panadería":"🥖","Arroz, pasta y legumbres":"🍝","Despensa":"🫙","Congelados":"❄️","Bebidas":"🥤","Desayuno y snacks":"🥣","Limpieza":"🧽","Higiene y cuidado":"🧴","Hogar y mascotas":"🏠"};
-const UNITS=["ud","g","kg","ml","l","paquetes","cajas","botellas","botes"];
-const KEY="miCompraStandaloneV2", CATKEY="miCompraCatalogV2";
-let catalog=JSON.parse(localStorage.getItem(CATKEY)||"null")||CATALOG;
-let items=JSON.parse(localStorage.getItem(KEY)||"{}");
-let openCats={};
-const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
-const key=(c,n)=>c+"::"+n;
-function save(){localStorage.setItem(KEY,JSON.stringify(items));localStorage.setItem(CATKEY,JSON.stringify(catalog));showToast()}
-function showToast(){const t=document.getElementById("toast");t.classList.add("show");clearTimeout(showToast.x);showToast.x=setTimeout(()=>t.classList.remove("show"),700)}
-function toggle(c,n){const k=key(c,n),x=items[k];items[k]={cat:c,name:n,qty:x?.qty||1,unit:x?.unit||"ud",selected:!x?.selected,done:false};save();render()}
-function patch(k,p){items[k]={...items[k],...p};save();render()}
-function renderSelected(){const list=document.getElementById("selectedList");const arr=Object.values(items).filter(x=>x.selected).sort((a,b)=>Number(a.done)-Number(b.done));const pending=arr.filter(x=>!x.done).length,done=arr.length-pending;document.getElementById("pendingTop").textContent=pending;document.getElementById("completedTop").textContent=done+" comprados";document.getElementById("totalBottom").textContent=arr.length+" productos";document.getElementById("doneBottom").textContent=done+" comprados";
-if(!arr.length){list.innerHTML='<div class="empty">Selecciona productos del catálogo para crear tu compra.</div>';return}
-list.innerHTML=arr.map(x=>{const k=key(x.cat,x.name);return `<div class="selected-row ${x.done?'done':''}"><button class="check ${x.done?'on':''}" data-action="done" data-key="${esc(k)}">${x.done?'✓':''}</button><button class="prodname" data-action="done" data-key="${esc(k)}"><span>${esc(x.name)}</span><small>${esc(x.cat)}</small></button><span class="qtypill">${esc(x.qty)} ${esc(x.unit)}</span><button class="trash" data-action="remove" data-key="${esc(k)}">✕</button></div>`}).join("");}
-function renderCategories(){const q=document.getElementById("search").value.trim().toLowerCase();const root=document.getElementById("categories");root.innerHTML=Object.entries(catalog).map(([c,ps])=>{const filtered=ps.filter(n=>(c+" "+n).toLowerCase().includes(q));if(!filtered.length)return"";const isOpen=q||openCats[c];return `<article class="category ${isOpen?'open':''}"><button class="catbtn" data-cat="${esc(c)}"><span class="catemoji">${EMOJI[c]||'🛍️'}</span><span class="catname">${esc(c)}</span><span class="count">${filtered.length}</span><span class="chev">⌄</span></button><div class="products">${filtered.map(n=>{const k=key(c,n),x=items[k],on=x?.selected;return `<div class="product ${on?'active':''}"><button class="square ${on?'on':''}" data-action="toggle" data-cat="${esc(c)}" data-name="${esc(n)}">${on?'✓':''}</button><div class="ptext" data-action="toggle" data-cat="${esc(c)}" data-name="${esc(n)}">${esc(n)}</div>${on?`<div class="controls"><input class="field num" type="number" min="0.1" step="0.1" value="${esc(x.qty)}" data-action="qty" data-key="${esc(k)}"><select class="field unit" data-action="unit" data-key="${esc(k)}">${UNITS.map(u=>`<option ${x.unit===u?'selected':''}>${u}</option>`).join('')}</select></div>`:''}</div>`}).join('')}</div></article>`}).join('')}
-function render(){renderSelected();renderCategories()}
-document.getElementById("categories").addEventListener("click",e=>{const catButton=e.target.closest("[data-cat]:not([data-action])");if(catButton){const c=catButton.dataset.cat;openCats[c]=!openCats[c];renderCategories();return}const a=e.target.closest("[data-action]");if(a?.dataset.action==="toggle")toggle(a.dataset.cat,a.dataset.name)});
-document.getElementById("categories").addEventListener("change",e=>{if(e.target.dataset.action==="qty")patch(e.target.dataset.key,{qty:e.target.value||1});if(e.target.dataset.action==="unit")patch(e.target.dataset.key,{unit:e.target.value})});
-document.getElementById("selectedList").addEventListener("click",e=>{const a=e.target.closest("[data-action]");if(!a)return;const k=a.dataset.key;if(a.dataset.action==="done")patch(k,{done:!items[k].done});if(a.dataset.action==="remove")patch(k,{selected:false,done:false})});
-document.getElementById("search").addEventListener("input",renderCategories);
-document.getElementById("resetBtn").onclick=()=>{if(confirm("¿Vaciar la compra actual?")){items={};save();render()}};
-document.getElementById("addBtn").onclick=addCustom;document.getElementById("newName").addEventListener("keydown",e=>{if(e.key==="Enter")addCustom()});
-function addCustom(){const input=document.getElementById("newName"),c=document.getElementById("newCat").value,n=input.value.trim();if(!n)return;catalog[c]=Array.from(new Set([...(catalog[c]||[]),n]));input.value="";const k=key(c,n);items[k]={cat:c,name:n,qty:1,unit:"ud",selected:true,done:false};openCats[c]=true;save();render()}
-const catSelect=document.getElementById("newCat");catSelect.innerHTML=Object.keys(catalog).map(c=>`<option>${esc(c)}</option>`).join("");render();
+(() => {
+  'use strict';
+  const SEED = {
+    'Frutas y verduras':['Plátanos','Manzanas','Peras','Naranjas','Limones','Aguacates','Tomates','Lechuga','Espinacas','Cebollas','Ajos','Patatas','Zanahorias','Pimientos','Calabacín','Berenjena','Brócoli','Champiñones'],
+    'Aves y carnes':['Pechuga de pollo','Muslos de pollo','Pavo','Carne picada','Filetes de ternera','Lomo de cerdo','Costillas','Hamburguesas','Salchichas'],
+    'Pescado y marisco':['Salmón','Merluza','Atún','Bacalao','Dorada','Gambas','Mejillones','Calamares'],
+    'Lácteos y huevos':['Leche','Huevos','Yogur natural','Yogur griego','Queso fresco','Queso rallado','Queso en lonchas','Mantequilla','Nata'],
+    'Panadería':['Pan de molde','Pan integral','Barra de pan','Tortillas de trigo','Picos','Croissants','Galletas'],
+    'Arroz, pasta y legumbres':['Arroz','Pasta','Espaguetis','Cuscús','Quinoa','Lentejas','Garbanzos','Alubias'],
+    'Despensa':['Aceite de oliva','Vinagre','Sal','Azúcar','Harina','Tomate triturado','Caldo','Atún en lata','Maíz','Aceitunas','Salsas','Especias','Café','Té','Cacao'],
+    'Congelados':['Verduras congeladas','Guisantes','Patatas fritas','Pizza','Pescado congelado','Helado','Hielo'],
+    'Bebidas':['Agua','Agua con gas','Refrescos','Zumos','Cerveza','Vino','Bebida vegetal'],
+    'Desayuno y snacks':['Cereales','Avena','Mermelada','Miel','Frutos secos','Barritas','Chocolate','Patatas fritas'],
+    'Limpieza':['Detergente ropa','Suavizante','Lavavajillas','Pastillas lavavajillas','Limpiador multiusos','Lejía','Limpiacristales','Bolsas de basura','Estropajos','Bayetas','Papel de cocina'],
+    'Higiene y cuidado':['Papel higiénico','Gel de ducha','Champú','Acondicionador','Desodorante','Pasta de dientes','Cepillos de dientes','Jabón de manos','Crema hidratante','Cuchillas','Algodón'],
+    'Hogar y mascotas':['Papel de aluminio','Film transparente','Servilletas','Pilas','Bombillas','Comida para perro','Comida para gato','Arena para gato']
+  };
+  const ICONS={'Frutas y verduras':'🥬','Aves y carnes':'🍗','Pescado y marisco':'🐟','Lácteos y huevos':'🥛','Panadería':'🥖','Arroz, pasta y legumbres':'🍝','Despensa':'🫙','Congelados':'❄️','Bebidas':'🥤','Desayuno y snacks':'🥣','Limpieza':'🧽','Higiene y cuidado':'🧴','Hogar y mascotas':'🏠'};
+  const UNITS=['ud','g','kg','ml','l','paquetes','cajas','botellas','botes'];
+  const CATALOG_KEY='miCompraCatalogV2', ITEMS_KEY='miCompraItemsV2', OPEN_KEY='miCompraOpenV2';
+  const safeRead=(key,fallback)=>{try{const v=JSON.parse(localStorage.getItem(key));return v??fallback}catch{return fallback}};
+  const clone=o=>JSON.parse(JSON.stringify(o));
+  let catalog=safeRead(CATALOG_KEY,clone(SEED));
+  let items=safeRead(ITEMS_KEY,{});
+  let open=safeRead(OPEN_KEY,{'Frutas y verduras':true});
+  let query='';
+  const el=id=>document.getElementById(id);
+  const itemId=(cat,name)=>cat+'::'+name;
+  const escapeHtml=s=>String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+  const save=()=>{localStorage.setItem(CATALOG_KEY,JSON.stringify(catalog));localStorage.setItem(ITEMS_KEY,JSON.stringify(items));localStorage.setItem(OPEN_KEY,JSON.stringify(open));showToast('Lista guardada')};
+  function showToast(text){const t=el('toast');t.textContent=text;t.classList.add('show');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>t.classList.remove('show'),900)}
+  function selected(){return Object.entries(items).filter(([,x])=>x.selected).sort((a,b)=>Number(a[1].done)-Number(b[1].done)||a[1].cat.localeCompare(b[1].cat,'es'))}
+  function stats(){const s=selected();return{all:s.length,done:s.filter(([,x])=>x.done).length,pending:s.filter(([,x])=>!x.done).length}}
+  function mutate(id,patch){items[id]={...items[id],...patch};save();render()}
+  function toggle(cat,name){const k=itemId(cat,name),was=items[k]?.selected;items[k]={cat,name,qty:items[k]?.qty||1,unit:items[k]?.unit||'ud',selected:!was,done:false};save();render()}
+  function render(){renderShopping();renderCategories();renderStats()}
+  function renderStats(){const s=stats();el('pendingTop').textContent=s.pending;el('summaryTop').textContent=s.all+' productos';el('footerTotal').textContent=s.all+' productos';el('footerDone').textContent=s.done+' comprados';el('completedMessage').hidden=!(s.all>0&&s.pending===0);el('currentCard').style.display=s.all?'block':'none'}
+  function renderShopping(){const root=el('shoppingList'),list=selected();if(!list.length){root.innerHTML='<div class="empty">Selecciona productos de las categorías para preparar tu compra.</div>';return}root.innerHTML=list.map(([k,x])=>`<div class="buyrow ${x.done?'done':''}" data-id="${encodeURIComponent(k)}"><button class="check ${x.done?'on':''}" data-action="done">${x.done?'✓':''}</button><div class="name ${x.done?'done':''}" data-action="done">${escapeHtml(x.name)}<span class="sub">${escapeHtml(x.cat)}</span></div><span class="amount">${escapeHtml(x.qty)} ${escapeHtml(x.unit)}</span><button class="remove" data-action="remove" title="Quitar">✕</button></div>`).join('')}
+  function renderCategories(){const root=el('categories'),q=query.trim().toLocaleLowerCase('es');const groups=Object.entries(catalog).map(([cat,products])=>[cat,products.filter(p=>(cat+' '+p).toLocaleLowerCase('es').includes(q))]).filter(([,p])=>p.length);root.innerHTML=groups.map(([cat,products])=>{const expanded=q||open[cat];return `<article class="category ${expanded?'open':''}" data-cat="${encodeURIComponent(cat)}"><button class="cathead" data-action="cat"><span class="emoji">${ICONS[cat]||'🛍️'}</span><strong>${escapeHtml(cat)}</strong><span class="pill">${products.length}</span><span class="arrow">⌄</span></button><div class="catbody">${products.map(name=>{const k=itemId(cat,name),x=items[k],on=x?.selected;return `<div class="productrow ${on?'selected':''}" data-id="${encodeURIComponent(k)}" data-cat="${encodeURIComponent(cat)}" data-name="${encodeURIComponent(name)}"><button class="square ${on?'on':''}" data-action="toggle">${on?'✓':''}</button><div class="name" data-action="toggle">${escapeHtml(name)}</div>${on?`<input class="field qty" type="number" min="0.1" step="0.1" value="${escapeHtml(x.qty)}" data-action="qty"><select class="field unit" data-action="unit">${UNITS.map(u=>`<option ${x.unit===u?'selected':''}>${u}</option>`).join('')}</select>`:''}</div>`}).join('')}</div></article>`}).join('')||'<div class="card empty">No se encontraron productos.</div>'}
+  el('categories').addEventListener('click',e=>{const action=e.target.closest('[data-action]')?.dataset.action;if(action==='cat'){const a=e.target.closest('.category'),cat=decodeURIComponent(a.dataset.cat);open[cat]=!open[cat];save();renderCategories()}if(action==='toggle'){const r=e.target.closest('.productrow');toggle(decodeURIComponent(r.dataset.cat),decodeURIComponent(r.dataset.name))}});
+  el('categories').addEventListener('change',e=>{const r=e.target.closest('.productrow');if(!r)return;const k=decodeURIComponent(r.dataset.id);if(e.target.dataset.action==='qty')mutate(k,{qty:e.target.value||1});if(e.target.dataset.action==='unit')mutate(k,{unit:e.target.value})});
+  el('shoppingList').addEventListener('click',e=>{const row=e.target.closest('.buyrow');if(!row)return;const k=decodeURIComponent(row.dataset.id),action=e.target.closest('[data-action]')?.dataset.action;if(action==='done')mutate(k,{done:!items[k].done});if(action==='remove')mutate(k,{selected:false,done:false})});
+  el('searchInput').addEventListener('input',e=>{query=e.target.value;renderCategories()});
+  el('addBtn').addEventListener('click',addCustom);el('newProduct').addEventListener('keydown',e=>{if(e.key==='Enter')addCustom()});
+  function addCustom(){const name=el('newProduct').value.trim(),cat=el('newCategory').value;if(!name)return showToast('Escribe un producto');if(!catalog[cat])catalog[cat]=[];if(!catalog[cat].some(p=>p.toLocaleLowerCase('es')===name.toLocaleLowerCase('es')))catalog[cat].unshift(name);const k=itemId(cat,name);items[k]={cat,name,qty:1,unit:'ud',selected:true,done:false};el('newProduct').value='';open[cat]=true;save();render();window.scrollTo({top:0,behavior:'smooth'})}
+  el('resetBtn').addEventListener('click',()=>{if(confirm('¿Quieres vaciar toda la compra actual?')){items={};save();render()}});
+  el('topBtn').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+  Object.keys(catalog).forEach(cat=>el('newCategory').insertAdjacentHTML('beforeend',`<option>${escapeHtml(cat)}</option>`));
+  window.addEventListener('storage',e=>{if([CATALOG_KEY,ITEMS_KEY,OPEN_KEY].includes(e.key)){catalog=safeRead(CATALOG_KEY,clone(SEED));items=safeRead(ITEMS_KEY,{});open=safeRead(OPEN_KEY,{});render()}});
+  render();
+})();
 </script>
 </body>
 </html>
