@@ -1,123 +1,82 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#047857">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Mi Compra">
-  <title>Mi Compra</title>
-  <style>
-    :root{--green:#047857;--green2:#059669;--soft:#ecfdf5;--bg:#f8fafc;--card:#fff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--danger:#dc2626;--shadow:0 8px 25px rgba(15,23,42,.08)}
-    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:92px}
-    button,input,select{font:inherit} button{cursor:pointer} .wrap{max-width:780px;margin:auto;padding:14px}
-    header{position:sticky;top:0;z-index:50;background:linear-gradient(135deg,#047857,#065f46);color:white;box-shadow:0 5px 20px rgba(6,95,70,.25)}
-    .head{max-width:780px;margin:auto;padding:18px 16px 14px}.eyebrow{font-size:11px;letter-spacing:.11em;opacity:.78;font-weight:800}.headrow{display:flex;justify-content:space-between;align-items:center;gap:12px}.title{margin:3px 0 0;font-size:27px}.counter{text-align:right}.counter strong{font-size:24px;display:block}.counter span{font-size:11px;opacity:.8}.status{display:flex;justify-content:space-between;gap:10px;margin-top:12px;font-size:12px;color:#d1fae5}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:19px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}.cardpad{padding:15px}.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--soft);padding:15px}.sectionhead h2{font-size:18px;margin:0}.sectionhead p{margin:3px 0 0;color:var(--muted);font-size:12px}
-    .iconbtn{border:0;background:rgba(255,255,255,.18);color:inherit;border-radius:12px;padding:9px 11px}.ghost{border:1px solid var(--border);background:white;color:var(--text)}.danger{color:var(--danger)}
-    .search{position:relative;margin-bottom:14px}.search span{position:absolute;left:14px;top:12px}.search input{width:100%;padding:12px 14px 12px 42px;border:1px solid var(--border);border-radius:16px;background:white;box-shadow:0 3px 12px rgba(15,23,42,.04);outline:none}.search input:focus{border-color:var(--green2);box-shadow:0 0 0 3px rgba(5,150,105,.15)}
-    .addgrid{display:grid;grid-template-columns:1fr 190px auto;gap:8px}.field{width:100%;border:1px solid var(--border);border-radius:12px;padding:11px;background:white;outline:none}.primary{border:0;background:var(--green);color:white;border-radius:12px;padding:11px 16px;font-weight:800}.primary:hover{background:#065f46}
-    .buyrow,.productrow{display:flex;align-items:center;gap:10px;padding:12px 14px;border-top:1px solid #edf2f7}.buyrow:first-child,.productrow:first-child{border-top:0}.buyrow.done{background:#f8fafc;opacity:.62}.check{width:29px;height:29px;border-radius:50%;border:2px solid #cbd5e1;background:white;display:grid;place-items:center;flex:none;font-weight:900}.check.on{background:var(--green2);border-color:var(--green2);color:white}.name{flex:1;min-width:0;font-weight:700}.name.done{text-decoration:line-through}.sub{display:block;color:var(--muted);font-size:11px;font-weight:500;margin-top:2px}.amount{background:#f1f5f9;border-radius:9px;padding:6px 9px;font-size:13px;font-weight:800;white-space:nowrap}.remove{border:0;background:transparent;color:#94a3b8;font-size:17px;padding:6px}.remove:hover{color:var(--danger)}
-    .empty{padding:24px;text-align:center;color:var(--muted)}.complete{padding:22px;text-align:center;color:var(--green);font-weight:800}
-    .category{background:white;border:1px solid var(--border);border-radius:17px;margin-bottom:9px;overflow:hidden;box-shadow:0 3px 12px rgba(15,23,42,.04)}.cathead{width:100%;border:0;background:white;padding:15px;display:flex;align-items:center;gap:11px;text-align:left}.cathead .emoji{font-size:23px}.cathead strong{flex:1}.pill{font-size:11px;color:var(--muted);background:#f1f5f9;padding:4px 7px;border-radius:999px}.arrow{color:#64748b}.catbody{display:none;border-top:1px solid var(--border)}.category.open .catbody{display:block}.category.open .arrow{transform:rotate(180deg)}
-    .productrow.selected{background:var(--soft)}.square{width:27px;height:27px;border-radius:8px;border:2px solid #cbd5e1;background:white;display:grid;place-items:center;flex:none;font-weight:900}.square.on{background:var(--green2);border-color:var(--green2);color:#fff}.qty{width:68px}.unit{width:100px}
-    .footer{position:fixed;z-index:40;left:0;right:0;bottom:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:11px max(12px,env(safe-area-inset-right)) calc(11px + env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left))}.footerin{max-width:752px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}.footer small{display:block;color:var(--muted);margin-top:2px}
-    .toast{position:fixed;z-index:80;left:50%;bottom:95px;transform:translateX(-50%) translateY(20px);background:#0f172a;color:white;padding:10px 15px;border-radius:999px;font-size:13px;opacity:0;pointer-events:none;transition:.2s}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-    @media(max-width:620px){.addgrid{grid-template-columns:1fr}.qty{width:62px}.unit{width:82px}.wrap{padding:10px}.buyrow,.productrow{padding:11px 10px}.title{font-size:24px}.sectionhead{padding:13px}.amount{font-size:12px}}
-    @media(prefers-color-scheme:dark){body.auto-dark{--bg:#07120f;--card:#101c18;--text:#e8fff7;--muted:#9fb9b0;--border:#243b33;--soft:#12382c}.auto-dark .field,.auto-dark .search input,.auto-dark .category,.auto-dark .cathead,.auto-dark .ghost,.auto-dark .check,.auto-dark .square{background:#101c18;color:var(--text)}.auto-dark .amount,.auto-dark .pill{background:#1f332c}.auto-dark .footer{background:rgba(16,28,24,.95)}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#08745f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mi Compra">
+<title>Mi Compra V3</title>
+<style>
+:root{--green:#08745f;--green2:#0b8a70;--deep:#07594c;--mint:#eaf8f3;--bg:#f2f6f4;--card:#fff;--text:#17211e;--muted:#71807b;--line:#e4eae7;--amber:#f5b82e;--danger:#d44f4f;--shadow:0 8px 28px rgba(13,68,54,.09)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.35 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;padding-bottom:105px}.app{max-width:780px;margin:auto}button,input,select{font:inherit}.top{position:sticky;top:0;z-index:30;background:linear-gradient(145deg,var(--green2),var(--deep));color:#fff;padding:calc(13px + env(safe-area-inset-top)) 15px 13px;box-shadow:0 6px 22px rgba(0,76,59,.22)}.topline{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:10px}.logo{width:43px;height:43px;border-radius:15px;background:rgba(255,255,255,.16);display:grid;place-items:center;font-size:24px}.eyebrow{font-size:10px;letter-spacing:.1em;opacity:.76;font-weight:850}.title{font-size:24px;font-weight:900}.counter{text-align:right}.counter b{font-size:26px;line-height:1}.counter span{display:block;font-size:10px;opacity:.78;margin-top:3px}.status{margin-top:10px;display:flex;justify-content:space-between;font-size:11px;opacity:.88}.main{padding:11px}.card{background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:12px}.cardhead{padding:14px 15px;background:linear-gradient(135deg,#e9faf4,#f6fcf9);display:flex;align-items:center;justify-content:space-between}.cardhead h2{font-size:17px;margin:0}.sub{font-size:11px;color:var(--muted);margin-top:2px}.iconbtn{border:0;background:#fff;border-radius:12px;width:38px;height:38px;font-size:18px;cursor:pointer;box-shadow:0 2px 9px rgba(0,0,0,.06)}.empty{padding:22px;text-align:center;color:var(--muted)}.selected-row{padding:11px 13px;display:flex;align-items:center;gap:9px;border-top:1px solid var(--line);transition:.22s}.selected-row.done{opacity:.52;background:#f8faf9}.check{width:31px;height:31px;border-radius:50%;border:2px solid #bdc8c4;background:#fff;display:grid;place-items:center;flex:0 0 auto;font-weight:900;color:#fff;cursor:pointer;transition:.18s}.check.on{background:var(--green2);border-color:var(--green2)}.check:active,.square:active,.star:active{transform:scale(.9)}.prodname{flex:1;text-align:left;border:0;background:transparent;font-weight:760;cursor:pointer;color:var(--text)}.prodname small{display:block;color:var(--muted);font-weight:500;font-size:10px;margin-top:2px}.done .prodname>span{text-decoration:line-through}.qtypill{white-space:nowrap;background:#edf2f0;padding:6px 8px;border-radius:10px;font-weight:780;font-size:12px}.delete{border:0;background:none;color:#97a39f;font-size:17px;cursor:pointer}.search{position:relative;margin-bottom:12px}.search input{width:100%;border:1px solid var(--line);border-radius:17px;padding:14px 14px 14px 43px;background:#fff;font-size:16px;outline:none;box-shadow:0 3px 13px rgba(0,0,0,.045)}.search input:focus{border-color:var(--green2);box-shadow:0 0 0 3px rgba(11,138,112,.12)}.search span{position:absolute;left:15px;top:12px;font-size:20px}.quick{padding:14px}.quicktitle{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.quicktitle h3{margin:0;font-size:16px}.quicktitle small{color:var(--muted)}.chips{display:flex;gap:8px;overflow:auto;padding-bottom:3px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}.chip{border:1px solid #dfe8e4;background:#fff;border-radius:14px;min-width:105px;padding:10px;text-align:left;cursor:pointer}.chip strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chip small{color:var(--muted)}.chip.selected{background:var(--mint);border-color:#bce7d8}.habit{display:flex;gap:9px;padding:13px}.habit button{flex:1;border:0;border-radius:14px;padding:12px 10px;font-weight:850;cursor:pointer}.habit .primary{background:var(--green2);color:#fff}.habit .secondary{background:#eef3f1;color:var(--green)}.addbox{padding:14px}.addbox h3{margin:0 0 10px}.addgrid{display:grid;grid-template-columns:1fr 155px auto;gap:8px}.field{width:100%;border:1px solid #dce4e1;border-radius:12px;background:#fff;padding:10px;font:inherit;outline:none}.primarybtn{border:0;border-radius:12px;background:var(--green2);color:#fff;font-weight:850;padding:10px 14px;cursor:pointer}.section-label{font-size:12px;font-weight:850;color:#71807b;letter-spacing:.07em;margin:18px 4px 8px;text-transform:uppercase}.category{background:#fff;border:1px solid var(--line);border-radius:19px;overflow:hidden;margin-bottom:9px;box-shadow:0 4px 15px rgba(0,0,0,.04)}.catbtn{width:100%;padding:14px;border:0;background:#fff;display:flex;align-items:center;gap:11px;text-align:left;cursor:pointer;color:var(--text)}.catemoji{font-size:23px;width:31px;text-align:center}.catcopy{flex:1;min-width:0}.catname{font-weight:860;display:block}.catdesc{font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}.count{font-size:10px;color:var(--muted);background:#f1f4f3;border-radius:9px;padding:4px 7px}.chev{font-size:14px;transition:.22s}.category.open .chev{transform:rotate(180deg)}.products{display:none;border-top:1px solid var(--line)}.category.open .products{display:block}.product{display:flex;align-items:center;gap:8px;padding:10px 11px;border-bottom:1px solid #edf1ef;min-height:58px}.product:last-child{border-bottom:0}.product.active{background:#effaf6}.square{width:28px;height:28px;border-radius:9px;border:2px solid #bdc9c5;background:#fff;display:grid;place-items:center;color:#fff;font-weight:900;cursor:pointer;flex:0 0 auto;transition:.18s}.square.on{background:var(--green2);border-color:var(--green2)}.ptext{flex:1;font-weight:730;cursor:pointer;min-width:0}.star{border:0;background:transparent;color:#c8cfcc;font-size:20px;padding:4px;cursor:pointer}.star.on{color:var(--amber)}.controls{display:flex;gap:5px}.num{width:61px}.unit{width:82px}.bottom{position:fixed;bottom:0;left:0;right:0;z-index:25;background:rgba(255,255,255,.94);backdrop-filter:blur(13px);border-top:1px solid var(--line);padding:9px 12px calc(9px + env(safe-area-inset-bottom))}.bottomin{max-width:756px;margin:auto;display:flex;align-items:center;justify-content:space-between}.bottom small{display:block;color:var(--muted)}.toast{position:fixed;left:50%;bottom:105px;transform:translateX(-50%) translateY(15px);background:#17211e;color:#fff;padding:10px 14px;border-radius:12px;opacity:0;pointer-events:none;transition:.22s;z-index:50}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.modal{position:fixed;inset:0;background:rgba(13,25,21,.52);z-index:60;display:none;place-items:end center;padding:15px}.modal.show{display:grid}.sheet{background:#fff;width:min(100%,520px);border-radius:24px 24px 18px 18px;padding:17px;max-height:82vh;overflow:auto}.sheethead{display:flex;justify-content:space-between;align-items:center}.sheethead h3{margin:0}.habit-list{margin-top:12px}.habit-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.habit-row label{flex:1}.close{border:0;background:#f0f3f2;width:35px;height:35px;border-radius:50%;font-size:18px}.savehabit{width:100%;margin-top:14px;padding:12px}.premium{animation:rise .22s ease both}@keyframes rise{from{opacity:.6;transform:translateY(5px)}to{opacity:1;transform:none}}
+@media(max-width:560px){.main{padding:9px}.addgrid{grid-template-columns:1fr 130px}.addgrid button{grid-column:1/-1}.controls{width:146px}.num{width:58px}.unit{width:80px}.product{gap:6px}.star{padding:2px}.habit{flex-direction:column}.title{font-size:22px}}
+</style>
 </head>
-<body class="auto-dark">
-<header>
-  <div class="head">
-    <div class="headrow">
-      <div><div class="eyebrow">LISTA PERSONAL · GUARDADO LOCAL</div><h1 class="title">🛒 Mi compra</h1></div>
-      <div class="counter"><strong id="pendingTop">0</strong><span>por comprar</span></div>
-    </div>
-    <div class="status"><span id="saveStatus">● Lista guardada en este dispositivo</span><span id="summaryTop">0 productos</span></div>
-  </div>
-</header>
-
-<main class="wrap">
-  <section class="card" id="currentCard">
-    <div class="sectionhead">
-      <div><h2>🛒 Compra actual</h2><p>Marca los productos según los vayas comprando</p></div>
-      <button class="iconbtn ghost danger" id="resetBtn" title="Vaciar compra">↻ Vaciar</button>
-    </div>
-    <div id="shoppingList"></div>
-    <div id="completedMessage" class="complete" hidden>✅ ¡Compra completada!</div>
-  </section>
-
-  <div class="search"><span>🔎</span><input id="searchInput" type="search" placeholder="Buscar un producto o categoría..." autocomplete="off"></div>
-
-  <section class="card cardpad">
-    <h2 style="font-size:17px;margin:0 0 11px">Añadir producto personalizado</h2>
-    <div class="addgrid">
-      <input class="field" id="newProduct" placeholder="Ej. Tortitas de arroz" maxlength="60">
-      <select class="field" id="newCategory"></select>
-      <button class="primary" id="addBtn">＋ Añadir</button>
-    </div>
-  </section>
-
-  <section id="categories"></section>
+<body>
+<header class="top"><div class="app"><div class="topline"><div class="brand"><div class="logo">🛒</div><div><div class="eyebrow">LISTA PERSONAL</div><div class="title">Mi Compra</div></div></div><div class="counter"><b id="pendingTop">0</b><span>POR COMPRAR</span></div></div><div class="status"><span>● Guardado en este dispositivo</span><span id="completedTop">0 comprados</span></div></div></header>
+<main class="app main">
+<section class="card premium"><div class="cardhead"><div><h2>Compra actual</h2><div class="sub">Marca cada producto cuando lo compres</div></div><button class="iconbtn" id="resetBtn" title="Vaciar lista">↻</button></div><div id="selectedList"></div></section>
+<div class="search"><span>⌕</span><input id="search" placeholder="Buscar un producto..." autocomplete="off"></div>
+<section class="card quick" id="favoritesCard"><div class="quicktitle"><h3>⭐ Favoritos</h3><small id="favCount">0 guardados</small></div><div class="chips" id="favorites"></div></section>
+<section class="card"><div class="habit"><button class="primary" id="addHabitBtn">📋 Añadir compra habitual</button><button class="secondary" id="editHabitBtn">⚙️ Personalizar</button></div></section>
+<section class="card quick" id="frequentCard"><div class="quicktitle"><h3>🔥 Más usados</h3><small>Según tus compras</small></div><div class="chips" id="frequent"></div></section>
+<section class="card addbox"><h3>Añadir mi producto</h3><div class="addgrid"><input class="field" id="newName" placeholder="Ej. Tortitas de arroz"><select class="field" id="newCat"></select><button class="primarybtn" id="addBtn">＋ Añadir</button></div></section>
+<div class="section-label">Catálogo por categorías</div><section id="categories"></section>
 </main>
-
-<div class="footer"><div class="footerin"><div><strong id="footerTotal">0 productos</strong><small id="footerDone">0 comprados</small></div><button class="primary" id="topBtn">Ver mi lista</button></div></div>
+<nav class="bottom"><div class="bottomin"><div><b id="totalBottom">0 productos</b><small id="doneBottom">0 comprados</small></div><button class="primarybtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">Ver mi lista</button></div></nav>
 <div class="toast" id="toast">Guardado</div>
-
+<div class="modal" id="habitModal"><div class="sheet"><div class="sheethead"><div><h3>Personaliza tu compra habitual</h3><div class="sub">Selecciona los productos que quieras añadir de una vez.</div></div><button class="close" id="closeModal">×</button></div><div class="habit-list" id="habitList"></div><button class="primarybtn savehabit" id="saveHabit">Guardar compra habitual</button></div></div>
 <script>
-(() => {
-  'use strict';
-  const SEED = {
-    'Frutas y verduras':['Plátanos','Manzanas','Peras','Naranjas','Limones','Aguacates','Tomates','Lechuga','Espinacas','Cebollas','Ajos','Patatas','Zanahorias','Pimientos','Calabacín','Berenjena','Brócoli','Champiñones'],
-    'Aves y carnes':['Pechuga de pollo','Muslos de pollo','Pavo','Carne picada','Filetes de ternera','Lomo de cerdo','Costillas','Hamburguesas','Salchichas'],
-    'Pescado y marisco':['Salmón','Merluza','Atún','Bacalao','Dorada','Gambas','Mejillones','Calamares'],
-    'Lácteos y huevos':['Leche','Huevos','Yogur natural','Yogur griego','Queso fresco','Queso rallado','Queso en lonchas','Mantequilla','Nata'],
-    'Panadería':['Pan de molde','Pan integral','Barra de pan','Tortillas de trigo','Picos','Croissants','Galletas'],
-    'Arroz, pasta y legumbres':['Arroz','Pasta','Espaguetis','Cuscús','Quinoa','Lentejas','Garbanzos','Alubias'],
-    'Despensa':['Aceite de oliva','Vinagre','Sal','Azúcar','Harina','Tomate triturado','Caldo','Atún en lata','Maíz','Aceitunas','Salsas','Especias','Café','Té','Cacao'],
-    'Congelados':['Verduras congeladas','Guisantes','Patatas fritas','Pizza','Pescado congelado','Helado','Hielo'],
-    'Bebidas':['Agua','Agua con gas','Refrescos','Zumos','Cerveza','Vino','Bebida vegetal'],
-    'Desayuno y snacks':['Cereales','Avena','Mermelada','Miel','Frutos secos','Barritas','Chocolate','Patatas fritas'],
-    'Limpieza':['Detergente ropa','Suavizante','Lavavajillas','Pastillas lavavajillas','Limpiador multiusos','Lejía','Limpiacristales','Bolsas de basura','Estropajos','Bayetas','Papel de cocina'],
-    'Higiene y cuidado':['Papel higiénico','Gel de ducha','Champú','Acondicionador','Desodorante','Pasta de dientes','Cepillos de dientes','Jabón de manos','Crema hidratante','Cuchillas','Algodón'],
-    'Hogar y mascotas':['Papel de aluminio','Film transparente','Servilletas','Pilas','Bombillas','Comida para perro','Comida para gato','Arena para gato']
-  };
-  const ICONS={'Frutas y verduras':'🥬','Aves y carnes':'🍗','Pescado y marisco':'🐟','Lácteos y huevos':'🥛','Panadería':'🥖','Arroz, pasta y legumbres':'🍝','Despensa':'🫙','Congelados':'❄️','Bebidas':'🥤','Desayuno y snacks':'🥣','Limpieza':'🧽','Higiene y cuidado':'🧴','Hogar y mascotas':'🏠'};
-  const UNITS=['ud','g','kg','ml','l','paquetes','cajas','botellas','botes'];
-  const CATALOG_KEY='miCompraCatalogV2', ITEMS_KEY='miCompraItemsV2', OPEN_KEY='miCompraOpenV2';
-  const safeRead=(key,fallback)=>{try{const v=JSON.parse(localStorage.getItem(key));return v??fallback}catch{return fallback}};
-  const clone=o=>JSON.parse(JSON.stringify(o));
-  let catalog=safeRead(CATALOG_KEY,clone(SEED));
-  let items=safeRead(ITEMS_KEY,{});
-  let open=safeRead(OPEN_KEY,{'Frutas y verduras':true});
-  let query='';
-  const el=id=>document.getElementById(id);
-  const itemId=(cat,name)=>cat+'::'+name;
-  const escapeHtml=s=>String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
-  const save=()=>{localStorage.setItem(CATALOG_KEY,JSON.stringify(catalog));localStorage.setItem(ITEMS_KEY,JSON.stringify(items));localStorage.setItem(OPEN_KEY,JSON.stringify(open));showToast('Lista guardada')};
-  function showToast(text){const t=el('toast');t.textContent=text;t.classList.add('show');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>t.classList.remove('show'),900)}
-  function selected(){return Object.entries(items).filter(([,x])=>x.selected).sort((a,b)=>Number(a[1].done)-Number(b[1].done)||a[1].cat.localeCompare(b[1].cat,'es'))}
-  function stats(){const s=selected();return{all:s.length,done:s.filter(([,x])=>x.done).length,pending:s.filter(([,x])=>!x.done).length}}
-  function mutate(id,patch){items[id]={...items[id],...patch};save();render()}
-  function toggle(cat,name){const k=itemId(cat,name),was=items[k]?.selected;items[k]={cat,name,qty:items[k]?.qty||1,unit:items[k]?.unit||'ud',selected:!was,done:false};save();render()}
-  function render(){renderShopping();renderCategories();renderStats()}
-  function renderStats(){const s=stats();el('pendingTop').textContent=s.pending;el('summaryTop').textContent=s.all+' productos';el('footerTotal').textContent=s.all+' productos';el('footerDone').textContent=s.done+' comprados';el('completedMessage').hidden=!(s.all>0&&s.pending===0);el('currentCard').style.display=s.all?'block':'none'}
-  function renderShopping(){const root=el('shoppingList'),list=selected();if(!list.length){root.innerHTML='<div class="empty">Selecciona productos de las categorías para preparar tu compra.</div>';return}root.innerHTML=list.map(([k,x])=>`<div class="buyrow ${x.done?'done':''}" data-id="${encodeURIComponent(k)}"><button class="check ${x.done?'on':''}" data-action="done">${x.done?'✓':''}</button><div class="name ${x.done?'done':''}" data-action="done">${escapeHtml(x.name)}<span class="sub">${escapeHtml(x.cat)}</span></div><span class="amount">${escapeHtml(x.qty)} ${escapeHtml(x.unit)}</span><button class="remove" data-action="remove" title="Quitar">✕</button></div>`).join('')}
-  function renderCategories(){const root=el('categories'),q=query.trim().toLocaleLowerCase('es');const groups=Object.entries(catalog).map(([cat,products])=>[cat,products.filter(p=>(cat+' '+p).toLocaleLowerCase('es').includes(q))]).filter(([,p])=>p.length);root.innerHTML=groups.map(([cat,products])=>{const expanded=q||open[cat];return `<article class="category ${expanded?'open':''}" data-cat="${encodeURIComponent(cat)}"><button class="cathead" data-action="cat"><span class="emoji">${ICONS[cat]||'🛍️'}</span><strong>${escapeHtml(cat)}</strong><span class="pill">${products.length}</span><span class="arrow">⌄</span></button><div class="catbody">${products.map(name=>{const k=itemId(cat,name),x=items[k],on=x?.selected;return `<div class="productrow ${on?'selected':''}" data-id="${encodeURIComponent(k)}" data-cat="${encodeURIComponent(cat)}" data-name="${encodeURIComponent(name)}"><button class="square ${on?'on':''}" data-action="toggle">${on?'✓':''}</button><div class="name" data-action="toggle">${escapeHtml(name)}</div>${on?`<input class="field qty" type="number" min="0.1" step="0.1" value="${escapeHtml(x.qty)}" data-action="qty"><select class="field unit" data-action="unit">${UNITS.map(u=>`<option ${x.unit===u?'selected':''}>${u}</option>`).join('')}</select>`:''}</div>`}).join('')}</div></article>`}).join('')||'<div class="card empty">No se encontraron productos.</div>'}
-  el('categories').addEventListener('click',e=>{const action=e.target.closest('[data-action]')?.dataset.action;if(action==='cat'){const a=e.target.closest('.category'),cat=decodeURIComponent(a.dataset.cat);open[cat]=!open[cat];save();renderCategories()}if(action==='toggle'){const r=e.target.closest('.productrow');toggle(decodeURIComponent(r.dataset.cat),decodeURIComponent(r.dataset.name))}});
-  el('categories').addEventListener('change',e=>{const r=e.target.closest('.productrow');if(!r)return;const k=decodeURIComponent(r.dataset.id);if(e.target.dataset.action==='qty')mutate(k,{qty:e.target.value||1});if(e.target.dataset.action==='unit')mutate(k,{unit:e.target.value})});
-  el('shoppingList').addEventListener('click',e=>{const row=e.target.closest('.buyrow');if(!row)return;const k=decodeURIComponent(row.dataset.id),action=e.target.closest('[data-action]')?.dataset.action;if(action==='done')mutate(k,{done:!items[k].done});if(action==='remove')mutate(k,{selected:false,done:false})});
-  el('searchInput').addEventListener('input',e=>{query=e.target.value;renderCategories()});
-  el('addBtn').addEventListener('click',addCustom);el('newProduct').addEventListener('keydown',e=>{if(e.key==='Enter')addCustom()});
-  function addCustom(){const name=el('newProduct').value.trim(),cat=el('newCategory').value;if(!name)return showToast('Escribe un producto');if(!catalog[cat])catalog[cat]=[];if(!catalog[cat].some(p=>p.toLocaleLowerCase('es')===name.toLocaleLowerCase('es')))catalog[cat].unshift(name);const k=itemId(cat,name);items[k]={cat,name,qty:1,unit:'ud',selected:true,done:false};el('newProduct').value='';open[cat]=true;save();render();window.scrollTo({top:0,behavior:'smooth'})}
-  el('resetBtn').addEventListener('click',()=>{if(confirm('¿Quieres vaciar toda la compra actual?')){items={};save();render()}});
-  el('topBtn').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-  Object.keys(catalog).forEach(cat=>el('newCategory').insertAdjacentHTML('beforeend',`<option>${escapeHtml(cat)}</option>`));
-  window.addEventListener('storage',e=>{if([CATALOG_KEY,ITEMS_KEY,OPEN_KEY].includes(e.key)){catalog=safeRead(CATALOG_KEY,clone(SEED));items=safeRead(ITEMS_KEY,{});open=safeRead(OPEN_KEY,{});render()}});
-  render();
-})();
+const BASE={
+"Frutas y verduras":["Plátanos","Manzanas","Peras","Naranjas","Limones","Aguacates","Tomates","Lechuga","Espinacas","Cebollas","Ajos","Patatas","Zanahorias","Pimientos","Calabacín","Berenjena","Brócoli","Champiñones"],
+"Aves y carnes":["Pechuga de pollo","Muslos de pollo","Pavo","Carne picada","Filetes de ternera","Lomo de cerdo","Costillas","Hamburguesas","Salchichas"],
+"Pescado y marisco":["Salmón","Merluza","Atún","Bacalao","Dorada","Gambas","Mejillones","Calamares"],
+"Lácteos y huevos":["Leche","Huevos","Yogur natural","Yogur griego","Queso fresco","Queso rallado","Queso en lonchas","Mantequilla","Nata"],
+"Panadería":["Pan de molde","Pan integral","Barra de pan","Tortillas de trigo","Picos","Croissants","Galletas"],
+"Arroz, pasta y legumbres":["Arroz","Pasta","Espaguetis","Cuscús","Quinoa","Lentejas","Garbanzos","Alubias"],
+"Despensa":["Aceite de oliva","Vinagre","Sal","Azúcar","Harina","Tomate triturado","Caldo","Atún en lata","Maíz","Aceitunas","Salsas","Especias","Café","Té","Cacao"],
+"Congelados":["Verduras congeladas","Guisantes","Patatas fritas","Pizza","Pescado congelado","Helado","Hielo"],
+"Bebidas":["Agua","Agua con gas","Refrescos","Zumos","Cerveza","Vino","Bebida vegetal"],
+"Desayuno y snacks":["Cereales","Avena","Mermelada","Miel","Frutos secos","Barritas","Chocolate","Patatas fritas"],
+"Limpieza":["Detergente ropa","Suavizante","Lavavajillas","Pastillas lavavajillas","Limpiador multiusos","Lejía","Limpiacristales","Bolsas de basura","Estropajos","Bayetas","Papel de cocina"],
+"Higiene y cuidado":["Papel higiénico","Gel de ducha","Champú","Acondicionador","Desodorante","Pasta de dientes","Cepillos de dientes","Jabón de manos","Crema hidratante","Cuchillas","Algodón"],
+"Hogar y mascotas":["Papel de aluminio","Film transparente","Servilletas","Pilas","Bombillas","Comida para perro","Comida para gato","Arena para gato"]};
+const EMOJI={"Frutas y verduras":"🥬","Aves y carnes":"🍗","Pescado y marisco":"🐟","Lácteos y huevos":"🥛","Panadería":"🥖","Arroz, pasta y legumbres":"🍝","Despensa":"🫙","Congelados":"❄️","Bebidas":"🥤","Desayuno y snacks":"🥣","Limpieza":"🧽","Higiene y cuidado":"🧴","Hogar y mascotas":"🏠"};
+const DESC={"Frutas y verduras":"Fruta fresca, hortalizas y ensalada","Aves y carnes":"Pollo, pavo, ternera y cerdo","Pescado y marisco":"Pescado fresco y congelado","Lácteos y huevos":"Leche, yogures, quesos y huevos","Panadería":"Pan, tortillas y bollería","Arroz, pasta y legumbres":"Básicos para tus platos","Despensa":"Conservas, salsas y condimentos","Congelados":"Verduras, pescado, pizzas y hielo","Bebidas":"Agua, refrescos, zumos y vino","Desayuno y snacks":"Cereales, frutos secos y caprichos","Limpieza":"Productos para casa y ropa","Higiene y cuidado":"Cuidado personal diario","Hogar y mascotas":"Menaje y productos para mascotas"};
+const UNITS=["ud","g","kg","ml","l","paquetes","cajas","botellas","botes"];
+const K={items:"mc_v3_items",catalog:"mc_v3_catalog",fav:"mc_v3_favorites",habit:"mc_v3_habit",usage:"mc_v3_usage"};
+let catalog=JSON.parse(localStorage.getItem(K.catalog)||"null")||BASE;
+let items=JSON.parse(localStorage.getItem(K.items)||"{}");
+let favorites=JSON.parse(localStorage.getItem(K.fav)||"[]");
+let habitual=JSON.parse(localStorage.getItem(K.habit)||"null")||["Leche","Huevos","Pan de molde","Yogur natural","Plátanos","Papel higiénico"];
+let usage=JSON.parse(localStorage.getItem(K.usage)||"{}");
+let openCats={};
+const $=s=>document.querySelector(s), esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m])), key=(c,n)=>c+"::"+n;
+function findProduct(n){for(const [c,ps] of Object.entries(catalog))if(ps.includes(n))return{cat:c,name:n};return null}
+function save(msg="Guardado"){localStorage.setItem(K.items,JSON.stringify(items));localStorage.setItem(K.catalog,JSON.stringify(catalog));localStorage.setItem(K.fav,JSON.stringify(favorites));localStorage.setItem(K.habit,JSON.stringify(habitual));localStorage.setItem(K.usage,JSON.stringify(usage));toast(msg)}
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(toast.x);toast.x=setTimeout(()=>t.classList.remove("show"),850)}
+function selectProduct(c,n){const k=key(c,n),x=items[k],was=x?.selected;items[k]={cat:c,name:n,qty:x?.qty||1,unit:x?.unit||"ud",selected:!was,done:false};if(!was)usage[n]=(usage[n]||0)+1;save(!was?"Añadido a la compra":"Eliminado de la compra");render()}
+function patch(k,p){items[k]={...items[k],...p};save();render()}
+function toggleFavorite(n){favorites=favorites.includes(n)?favorites.filter(x=>x!==n):[...favorites,n];save(favorites.includes(n)?"Añadido a favoritos":"Eliminado de favoritos");render()}
+function quickAdd(n){const p=findProduct(n);if(!p)return;const k=key(p.cat,p.name),x=items[k];if(!x?.selected){items[k]={cat:p.cat,name:p.name,qty:x?.qty||1,unit:x?.unit||"ud",selected:true,done:false};usage[n]=(usage[n]||0)+1;save("Añadido a la compra");render()}else toast("Ya está en tu compra")}
+function renderSelected(){const arr=Object.values(items).filter(x=>x.selected).sort((a,b)=>Number(a.done)-Number(b.done));const pending=arr.filter(x=>!x.done).length,done=arr.length-pending;$("#pendingTop").textContent=pending;$("#completedTop").textContent=done+" comprados";$("#totalBottom").textContent=arr.length+" productos";$("#doneBottom").textContent=done+" comprados";$("#selectedList").innerHTML=!arr.length?'<div class="empty">Tu compra está vacía. Añade productos desde favoritos, compra habitual o categorías.</div>':arr.map(x=>{const k=key(x.cat,x.name);return `<div class="selected-row premium ${x.done?'done':''}"><button class="check ${x.done?'on':''}" data-act="done" data-key="${esc(k)}">${x.done?'✓':''}</button><button class="prodname" data-act="done" data-key="${esc(k)}"><span>${esc(x.name)}</span><small>${esc(x.cat)}</small></button><span class="qtypill">${esc(x.qty)} ${esc(x.unit)}</span><button class="delete" data-act="remove" data-key="${esc(k)}">✕</button></div>`}).join("")}
+function renderQuick(){const fav=favorites.filter(findProduct);$("#favCount").textContent=fav.length+" guardados";$("#favorites").innerHTML=fav.length?fav.map(n=>chip(n,"⭐")).join(""):'<div class="sub">Pulsa la estrella de cualquier producto para guardarlo aquí.</div>';const frequent=Object.entries(usage).sort((a,b)=>b[1]-a[1]).slice(0,8).map(x=>x[0]).filter(findProduct);$("#frequentCard").style.display=frequent.length?"block":"none";$("#frequent").innerHTML=frequent.map(n=>chip(n,"🔥",usage[n]+" veces")).join("")}
+function chip(n,ico,small="Toca para añadir"){const p=findProduct(n),sel=p&&items[key(p.cat,n)]?.selected;return `<button class="chip ${sel?'selected':''}" data-quick="${esc(n)}"><strong>${ico} ${esc(n)}</strong><small>${sel?'Ya añadido':small}</small></button>`}
+function renderCategories(){const q=$("#search").value.trim().toLowerCase();$("#categories").innerHTML=Object.entries(catalog).map(([c,ps])=>{const filtered=ps.filter(n=>(c+" "+n).toLowerCase().includes(q));if(!filtered.length)return"";const isOpen=Boolean(q)||Boolean(openCats[c]);return `<article class="category ${isOpen?'open':''}"><button class="catbtn" data-cat="${esc(c)}"><span class="catemoji">${EMOJI[c]||'🛍️'}</span><span class="catcopy"><span class="catname">${esc(c)}</span><span class="catdesc">${esc(DESC[c]||'Productos de supermercado')}</span></span><span class="count">${filtered.length}</span><span class="chev">⌄</span></button><div class="products">${filtered.map(n=>{const k=key(c,n),x=items[k],on=x?.selected,fav=favorites.includes(n);return `<div class="product ${on?'active':''}"><button class="square ${on?'on':''}" data-act="toggle" data-cat="${esc(c)}" data-name="${esc(n)}">${on?'✓':''}</button><div class="ptext" data-act="toggle" data-cat="${esc(c)}" data-name="${esc(n)}">${esc(n)}</div><button class="star ${fav?'on':''}" data-act="favorite" data-name="${esc(n)}">★</button>${on?`<div class="controls"><input class="field num" type="number" min="0.1" step="0.1" value="${esc(x.qty)}" data-act="qty" data-key="${esc(k)}"><select class="field unit" data-act="unit" data-key="${esc(k)}">${UNITS.map(u=>`<option ${x.unit===u?'selected':''}>${u}</option>`).join('')}</select></div>`:''}</div>`}).join('')}</div></article>`}).join('')}
+function render(){renderSelected();renderQuick();renderCategories()}
+$("#selectedList").addEventListener("click",e=>{const a=e.target.closest("[data-act]");if(!a)return;const k=a.dataset.key;if(a.dataset.act==="done")patch(k,{done:!items[k].done});if(a.dataset.act==="remove")patch(k,{selected:false,done:false})});
+$("#categories").addEventListener("click",e=>{const a=e.target.closest("[data-act]");if(a){if(a.dataset.act==="toggle")selectProduct(a.dataset.cat,a.dataset.name);if(a.dataset.act==="favorite")toggleFavorite(a.dataset.name);return}const b=e.target.closest("[data-cat]");if(b){openCats[b.dataset.cat]=!openCats[b.dataset.cat];renderCategories()}});
+$("#categories").addEventListener("change",e=>{if(e.target.dataset.act==="qty")patch(e.target.dataset.key,{qty:e.target.value||1});if(e.target.dataset.act==="unit")patch(e.target.dataset.key,{unit:e.target.value})});
+$("#favorites").addEventListener("click",e=>{const b=e.target.closest("[data-quick]");if(b)quickAdd(b.dataset.quick)});$("#frequent").addEventListener("click",e=>{const b=e.target.closest("[data-quick]");if(b)quickAdd(b.dataset.quick)});
+$("#search").addEventListener("input",renderCategories);$("#resetBtn").onclick=()=>{if(confirm("¿Vaciar la compra actual?")){items={};save("Compra vaciada");render()}};
+function addCustom(){const input=$("#newName"),c=$("#newCat").value,n=input.value.trim();if(!n)return;catalog[c]=Array.from(new Set([...(catalog[c]||[]),n]));input.value="";items[key(c,n)]={cat:c,name:n,qty:1,unit:"ud",selected:true,done:false};usage[n]=(usage[n]||0)+1;openCats[c]=true;save("Producto añadido");render()}
+$("#addBtn").onclick=addCustom;$("#newName").addEventListener("keydown",e=>{if(e.key==="Enter")addCustom()});
+$("#addHabitBtn").onclick=()=>{let count=0;habitual.forEach(n=>{const p=findProduct(n);if(!p)return;const k=key(p.cat,n);if(!items[k]?.selected){items[k]={cat:p.cat,name:n,qty:items[k]?.qty||1,unit:items[k]?.unit||"ud",selected:true,done:false};usage[n]=(usage[n]||0)+1;count++}});save(count?count+" productos añadidos":"La compra habitual ya está añadida");render()};
+function openHabit(){const all=Object.values(catalog).flat();$("#habitList").innerHTML=all.map(n=>`<div class="habit-row"><input type="checkbox" id="h-${esc(n)}" value="${esc(n)}" ${habitual.includes(n)?'checked':''}><label for="h-${esc(n)}">${esc(n)}</label></div>`).join("");$("#habitModal").classList.add("show")}
+$("#editHabitBtn").onclick=openHabit;$("#closeModal").onclick=()=>$("#habitModal").classList.remove("show");$("#habitModal").addEventListener("click",e=>{if(e.target.id==="habitModal")e.currentTarget.classList.remove("show")});$("#saveHabit").onclick=()=>{habitual=[...document.querySelectorAll("#habitList input:checked")].map(x=>x.value);save("Compra habitual guardada");$("#habitModal").classList.remove("show")};
+$("#newCat").innerHTML=Object.keys(catalog).map(c=>`<option>${esc(c)}</option>`).join("");render();
 </script>
 </body>
 </html>
